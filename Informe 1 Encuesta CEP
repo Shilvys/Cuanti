@@ -96,3 +96,7 @@ sjt.xtab(base_85$estallido_5, #filas
 sjt.xtab(base_85$constitucion_3, #filas
          base_85$sexo, #columnas
          show.col.prc = T, show.row.prc = T, file = "11.doc")
+         
+sjt.xtab(base_85$constitucion_4_a, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "12.doc")
