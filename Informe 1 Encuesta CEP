@@ -1,0 +1,98 @@
+### 1. Instalar estos Paquetes 
+install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("plyr")
+install.packages("tidyr")
+install.packages("mlogit")
+install.packages("stargazer")
+install.packages("rsq")
+install.packages("sjPlot")
+install.packages("dslabs")
+
+### 1.1 Cargar desde la biblioteca estos Paquetes
+library(tidyverse)
+library(dplyr)
+library(plyr)
+library(tidyr)
+library(mlogit)
+library(stargazer)
+library(rsq)
+library(sjPlot)
+library(dslabs)
+
+## 2. Encuesta CEP
+### 2.1 Link: https://www.cepchile.cl/cep/encuestas-cep/encuestas-2010-2021/estudio-nacional-de-opinion-publica-n-85-septiembre-2021
+
+### 2.2 Importar base de datos
+library(haven)
+base_85 <- read_sav("encuesta_cep_ago2021/base_85.sav")
+View(base_85)
+
+# 2.3Variable numérica
+base_85[sapply(base_85, is.numeric)] <- lapply(base_85[sapply(base_85, is.numeric)], as.factor)
+
+## 3. Análisis descriptivo
+
+### 3.1 Frecuencias
+
+### Variable Inicial: elec_pres_1
+table(base_85$elec_pres_1)
+
+table(base_85$sexo)
+
+### Variable dependiente: elec_pres_1 en porcentaje 
+table(base_85$elec_pres_1)
+table_1 <- table(base_85$elec_pres_1)
+prop.table(table_1)
+
+### 3.2 Ejemplo tablas de contingencia: elec_pres_1 y sexo
+## Visualizacion en RStudio
+sjt.xtab(base_85$elec_pres_1, # Variable 1
+  base_85$sexo, # Variable 2
+  var.labels = c("Presidente", "Sexo"), # Nombres de las variables
+  show.exp = TRUE)
+
+## Visualizacion en word
+sjt.xtab(base_85$elec_pres_1, #filas
+         base_85$sexo, #columnas
+         file = "1.doc")
+## Visualizacion en word
+sjt.xtab(base_85$confianza_6_y, #filas
+         base_85$sexo, #columnas
+         file = "2.doc")
+### Ejemplo tablas de contingencia: elec_pres_1 y sexo % Columnas
+sjt.xtab(base_85$interes_pol_1_b, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, file = "3.doc")
+
+### Ejemplo tablas de contingencia: elec_pres_1 y sexo % Filas y Columnas
+sjt.xtab(base_85$confianza_6_y, #filas
+         base_85$democracia_21, #columnas
+         show.col.prc = T, show.row.prc = T, file = "4.doc")
+
+### Mi analisis
+
+### Ejemplo tablas de contingencia: elec_pres_1 y sexo % Filas y Columnas
+sjt.xtab(base_85$confianza_6_y, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "5.doc")
+sjt.xtab(base_85$interes_pol_1_b, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "10.doc")
+sjt.xtab(base_85$democracia_21, #filas
+         base_85$constitucion_4_c, #columnas
+         show.col.prc = T, show.row.prc = T, file = "8.doc")
+sjt.xtab(base_85$democracia_21, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "9.doc")
+
+sjt.xtab(base_85$elec_pres_1, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "9.doc")
+sjt.xtab(base_85$estallido_5, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "10.doc")
+
+sjt.xtab(base_85$constitucion_3, #filas
+         base_85$sexo, #columnas
+         show.col.prc = T, show.row.prc = T, file = "11.doc")
