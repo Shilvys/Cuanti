@@ -100,3 +100,9 @@ sjt.xtab(base_85$constitucion_3, #filas
 sjt.xtab(base_85$constitucion_4_a, #filas
          base_85$sexo, #columnas
          show.col.prc = T, show.row.prc = T, file = "12.doc")
+sjt.xtab(base_85$democracia_21, #filas
+         base_85$interes_pol_1_b, #columnas
+         file = "13.doc")
+sjt.xtab(base_85$democracia_21, #filas
+         base_85$interes_pol_1_b, #columnas
+         show.col.prc = T, show.row.prc = T, file = "14.doc")
