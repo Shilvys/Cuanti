@@ -106,3 +106,38 @@ sjt.xtab(base_85$democracia_21, #filas
 sjt.xtab(base_85$democracia_21, #filas
          base_85$interes_pol_1_b, #columnas
          show.col.prc = T, show.row.prc = T, file = "14.doc")
+cor.test(as.numeric(base_85$democracia_21), as.numeric(base_85$sexo), 
+         method=c("pearson"))
+cor.test(as.numeric(base_85$democracia_21), as.numeric(base_85$interes_pol_1_b), 
+cor.test(as.numeric(base_85$democracia_21), as.numeric(base_85$constitucion_4_a), 
+         method=c("pearson"))
+cor.test(as.numeric(base_85$democracia_21), as.numeric(base_85$constitucion_3), 
+         method=c("pearson"))
+ 
+ base_85["GSE-N"] <- as.numeric(as.character(base_85$gse))
+
+base_85["age_N-2"] <- as.numeric(as.character(base_85$edad))
+ 
+ base_85["apoyodemocratico"] <- as.numeric(as.character(base_85$democracia_21)) 
+table(base_85$democracia_21)
+
+## 5.1 Variable dummy 1 democracia_21 -- BINARIA
+base_85$apoyodemocratico.Dummy<-ifelse(base_85$apoyodemocratico=="1",1,0)
+table(base_85$apoyodemocratico.Dummy)
+
+# 19. 2 modelos adicional m7 y m8 sin cbind()
+         
+m7 = glm(base_85$apoyodemocratico.Dummy ~ base_85$`age_N-2` + 
+           base_85$confianza_6_d + base_85$`GSE-N`,
+         data = base_85,
+         binomial())
+summary(m7)
+m8 = glm(base_85$apoyodemocratico.Dummy ~ base_85$`age_N-2` + 
+           base_85$confianza_6_d + base_85$`GSE-N`+base_85$sexo
+         data = base_85,
+         binomial())
+summary(m8)
+
+# 20. Tabular Regresion Logistica Binaria de m7 y m8
+stargazer(m7, m8, title = "Modelos 7 y 8", align =TRUE, 
+          out = "resultados7.txt")
